@@ -1,0 +1,24 @@
+#### 906mb image via single stage build
+
+### Build and Execute in same stage - all build and dependency libraries are
+###   kept in this stage leading to an inflated docker image size
+
+FROM openjdk:11-jdk-slim
+
+# install maven and git
+RUN apt-get update && apt-get install -y \
+    maven \
+    git
+
+# clone loader repo
+RUN mkdir -p /workspace
+WORKDIR /workspace
+# checkout specific branch for demonstration purposes
+RUN git clone -b neo4j-3.5.11 https://github.com/tcallsen/osm2graph-neo4j.git
+WORKDIR /workspace/osm2graph-neo4j
+
+# build loader repo
+RUN mvn clean install
+
+# execute loader
+CMD ["mvn", "exec:java", "-DosmFile=/workspace/in.osm", "-DgraphDb=/workspace/out/graph.db"]

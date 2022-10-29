@@ -20,8 +20,8 @@ WORKDIR /workspace/osm2graph-neo4j
 RUN mvn clean install
 
 
-### Execute in second stage - only copies binaries to second stage leading to
-###   docker image size reduction
+### Execute in second stage - only copy compiled binary/jar to second stage 
+###   to reduce docker image size
 
 FROM openjdk:11-jdk-slim
 

@@ -1,7 +1,7 @@
 #### 906mb image via single stage build
 
 ### Build and Execute in same stage - all build and dependency libraries are
-###   kept in this stage leading to an inflated docker image size
+###   kept in this stage leading to an inflated docker image
 
 FROM openjdk:11-jdk-slim
 
